@@ -5,9 +5,8 @@ shift_1 = int(input("Enter Shift1:"))
 shift_2 = int(input("Enter Shift2:")) 
 
 # Open the original file and read it.
-f = open("raw_text.txt")
-rw_txt = f.read()
-f.close() # close the file after reading
+with open("raw_text.txt", "r") as f:
+    rw_txt = f.read()
 
 def encrypt(rw_txt, shift_1, shift_2):
     encrypted_text = ""  # empty string to hold encrypted text
@@ -16,43 +15,27 @@ def encrypt(rw_txt, shift_1, shift_2):
     for char in rw_txt:
         #lowercase
         #first half of alphabet: (a-m)
-        if char.islower():
-            if char>='a' and char<='m':
-                new_ord = ord(char) + (shift_1*shift_2)
-                #Wrap around if past'z'
-                if new_ord > ord('z'):
-                    new_ord-=26
-
-                encrypted_text += chr(new_ord)
+        if 'a' <= char<='m':
+                shift = shift_1 * shift_2
+                new_ord = chr((ord(char) - ord('a') + shift)%13 + ord('a') )           
+                encrypted_text += new_ord
         
         #second half of alphabet:(n-z)
-            else:
-                new_ord = ord(char)-(shift_1 + shift_2)
-                #Wrap around if before 'a'
-                if new_ord < ord('a'):
-                    new_ord +=26
-                #Convert back to character and append to result
-                encrypted_text += chr(new_ord)
+        elif 'n' <= char <= 'z':
+                shift = shift_1 + shift_2
+                new_ord = chr((ord(char) - ord('n') - shift)%13 + ord('n') )           
+                encrypted_text += new_ord
             
         #uppercase
-        elif char.isupper():
-        #for first half(A-M)
-            if char >= 'A' and char <='M':
-               new_ord = ord(char)- (shift_1)
-
-              #Wrap around if before 'A'
-               if new_ord < ord('A'):
-                  new_ord += 26
+        elif  'A' <= char <='M':
+               shift = shift_1
+               new_ord = chr((ord(char) - ord('A') - shift)%13 + ord('A') )           
+               encrypted_text += new_ord
             
-               encrypted_text += chr(new_ord)
-            
-            else:
-                new_ord = ord(char) + ((shift_2**2))
-
-                if new_ord >ord('Z'):
-                    new_ord -=26
-
-                encrypted_text += chr(new_ord) 
+        elif 'N' <= char <= 'Z':
+                shift = shift_1 * shift_2
+                new_ord = chr((ord(char) - ord('N') + shift)%13 + ord('N') )          
+                encrypted_text += new_ord
 
         #for other characters
         else:
@@ -65,5 +48,3 @@ encrypted_text = encrypt(rw_txt, shift_1, shift_2)
 
 with open("encrypted_text.txt", "w") as f:
     f.write(encrypted_text)
-
-    
