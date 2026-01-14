@@ -24,11 +24,7 @@ s = int(input("Please enter the number of sides: "))
 s_length = int(input("Pleae enter the side length: "))
 depth = int(input("Please enter the recursion depth: "))
 
-t.penup()
-t.goto(-s_length/2,-s_length/2)
-t.setheading(0)
-t.pendown()
-
+t.setheading(180) 
 angle = 360/s
 for i in range(s):
     drawGeometry(s_length,depth)
