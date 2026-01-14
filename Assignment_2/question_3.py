@@ -12,11 +12,11 @@ def drawGeometry(leng,depth):
         #draws the first segment
         drawGeometry(lenOftheSegment, depth - 1)        
         # turn& draw the indent
-        t.right(60)
+        t.left(60)
         drawGeometry(lenOftheSegment, depth - 1)        
-        t.left(120)
+        t.right(120)
         drawGeometry(lenOftheSegment, depth - 1)        
-        t.right(60)
+        t.left(60)
         drawGeometry(lenOftheSegment, depth - 1)
    
 s = int(input("Please enter the number of sides: "))
