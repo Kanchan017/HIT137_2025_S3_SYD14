@@ -1,6 +1,7 @@
 # Assignment2 Q3:Using a recursive function to generate a geometric pattern using Python's turtle graphics
 import turtle as t
 t.speed(0)
+t.hideturtle()
 #Defining recursive function to draw 
 def drawGeometry(leng,depth):
     #Case: if depth =0 draw a straight line
@@ -23,8 +24,14 @@ s = int(input("Please enter the number of sides: "))
 s_length = int(input("Pleae enter the side length: "))
 depth = int(input("Please enter the recursion depth: "))
 
+t.penup()
+t.goto(-s_length/2,-s_length/2)
+t.setheading(0)
+t.pendown()
+
 angle = 360/s
 for i in range(s):
     drawGeometry(s_length,depth)
     t.left(angle)   
+    t.update()
 t.done()
